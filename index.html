@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>T-1A Boldface & Operating Limitations</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      font-family: "Times New Roman", Times, Georgia, serif;
+      color: #000;
+      padding: 24px 12px 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 1-to-1 Document Container (960px width) */
+    .document-page {
+      background: #ffffff;
+      width: 100%;
+      max-width: 960px;
+      border: 2px solid #000;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      display: none;
+    }
+
+    .document-page.active-page {
+      display: block;
+    }
+
+    /* ================= HEADER STYLES ================= */
+    .doc-header-title {
+      border-bottom: 1.5px solid #000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 15.5px;
+      font-weight: bold;
+      padding: 6px 12px;
+    }
+
+    .meta-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      border-bottom: 1.5px solid #000;
+      font-size: 13.5px;
+    }
+
+    .meta-cell {
+      padding: 5px 8px;
+      display: flex;
+      align-items: center;
+    }
+
+    .meta-cell:not(:last-child) {
+      border-right: 1.5px solid #000;
+    }
+
+    .meta-cell label {
+      font-size: 13px;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+
+    .meta-cell input {
+      border: none;
+      outline: none;
+      width: 100%;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 13.5px;
+      background: transparent;
+    }
+
+    .section-title {
+      border-bottom: 1.5px solid #000;
+      font-size: 14.5px;
+      font-weight: bold;
+      padding: 5px 8px;
+      background: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drill-tag {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 11px;
+      background: #7c3aed;
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.5px;
+    }
+
+    /* ================= SECTION 1 BOLDFACE BLOCKS ================= */
+    .proc-block {
+      border-bottom: 1.5px solid #000;
+      padding: 8px 12px 10px;
+      transition: background-color 0.2s ease;
+      position: relative;
+    }
+
+    .proc-block:last-child {
+      border-bottom: none;
+    }
+
+    .proc-title {
+      font-size: 14px;
+      font-weight: bold;
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .status-text {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      display: none;
+    }
+
+    .proc-textarea {
+      width: 100%;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 14.5px;
+      font-weight: bold;
+      line-height: 1.45;
+      color: #000;
+      background: transparent;
+      border: none;
+      outline: none;
+      resize: vertical;
+      padding: 0;
+    }
+
+    /* Procedure 2 Split Layout */
+    .proc2-split-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .proc2-conditional-cue {
+      font-size: 12.5px;
+      text-align: center;
+      line-height: 1.35;
+      padding: 4px 10px;
+      color: #000;
+      font-style: normal;
+    }
+
+    #block-1 .proc-textarea { min-height: 48px; }
+    #block-3 .proc-textarea { min-height: 48px; }
+    #block-4 .proc-textarea { min-height: 48px; }
+    #block-5 .proc-textarea { min-height: 48px; }
+
+    /* ================= SECTION 2 1-TO-1 TABLES ================= */
+    table.t1-engine-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 11.5px;
+      table-layout: fixed;
+      border-bottom: 1.5px solid #000;
+    }
+
+    table.t1-engine-table th, table.t1-engine-table td {
+      border: 1px solid #000;
+      padding: 3px 4px;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    table.t1-engine-table th {
+      font-weight: bold;
+      background: #ffffff;
+    }
+
+    .shaded {
+      background-color: #d1d5db;
+    }
+
+    /* Engine Notes */
+    .t1-notes-block {
+      padding: 6px 8px;
+      font-size: 10.5px;
+      line-height: 1.4;
+      border-bottom: 1.5px solid #000;
+      text-align: justify;
+    }
+
+    .t1-notes-block p {
+      margin-bottom: 3px;
+    }
+
+    /* Lower Section: 2 Columns */
+    .t1-lower-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      width: 100%;
+    }
+
+    .t1-col-left {
+      border-right: 1.5px solid #000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .t1-col-right {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .t1-subbox {
+      border-bottom: 1.5px solid #000;
+      padding: 6px 8px;
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .t1-col-left .t1-subbox:last-child,
+    .t1-col-right .t1-subbox:last-child {
+      border-bottom: none;
+    }
+
+    .t1-row {
+      margin-bottom: 3px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
+
+    .t1-flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+
+    .prefilled-val {
+      font-weight: normal;
+      display: inline-block;
+      min-width: 25px;
+      text-align: center;
+      border-bottom: 1px solid #000;
+      padding: 0 4px;
+      margin: 0 2px;
+    }
+
+    /* Underlined Fill-In Blanks for Tested Fields */
+    .blank-input {
+      border: none;
+      border-bottom: 1.5px solid #000;
+      background: transparent;
+      outline: none;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11.5px;
+      font-weight: bold;
+      text-align: center;
+      padding: 0 1px;
+      color: #000;
+      transition: background-color 0.15s ease, opacity 0.2s ease;
+    }
+
+    .blank-input:focus {
+      border-bottom: 2px solid #1976d2;
+    }
+
+    .blank-input.locked-blank {
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    .w-35 { width: 35px; }
+    .w-42 { width: 42px; }
+    .w-50 { width: 50px; }
+    .w-65 { width: 65px; }
+
+    /* ================= RANDOM QUESTIONS 10-ITEM LAYOUT (BOLD BLACK) ================= */
+    .random-q-item {
+      border-bottom: 1.5px solid #000;
+      padding: 11px 14px;
+      transition: background-color 0.2s ease;
+      position: relative;
+    }
+
+    .random-q-item:last-child {
+      border-bottom: none;
+    }
+
+    .random-q-header {
+      font-size: 13.5px;
+      margin-bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      line-height: 1.4;
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .random-q-standard {
+      font-size: 13.5px;
+      font-weight: bold;
+      color: #000000;
+      margin-left: 3px;
+    }
+
+    .q-cat1, .q-cat2, .q-cat3 {
+      font-weight: bold;
+      color: #000000;
+    }
+
+    .q-arrow {
+      color: #000000;
+      font-weight: bold;
+      margin: 0 5px;
+      display: inline-block;
+    }
+
+    .random-q-body {
+      font-size: 13.5px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .random-q-body .blank-input {
+      font-size: 13.5px;
+      padding: 1px 4px;
+    }
+
+    /* ================= GRADING COLORS ================= */
+    .correct-box {
+      background-color: #e6f4ea !important;
+    }
+
+    .correct-box .status-text {
+      display: inline-block;
+      color: #1e7e34;
+    }
+
+    .incorrect-box {
+      background-color: #fce8e6 !important;
+    }
+
+    .incorrect-box .status-text {
+      display: inline-block;
+      color: #d93025;
+    }
+
+    input.correct-input {
+      background-color: #e6f4ea !important;
+      border-bottom-color: #1e7e34 !important;
+      color: #137333 !important;
+    }
+
+    input.incorrect-input {
+      background-color: #fce8e6 !important;
+      border-bottom-color: #d93025 !important;
+      color: #c5221f !important;
+    }
+
+    .solution-panel {
+      display: none;
+      margin-top: 6px;
+      padding: 5px 8px;
+      background: #ffffff;
+      border: 1px solid #d93025;
+      border-radius: 2px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #b31412;
+      white-space: pre-wrap;
+      line-height: 1.35;
+    }
+
+    .solution-panel .label {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      color: #666;
+      display: block;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    /* ================= CONTROLS & MINIMALIST BUTTONS ================= */
+    .controls-panel {
+      width: 100%;
+      max-width: 960px;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-banner {
+      display: none;
+      width: 100%;
+      padding: 10px 14px;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      border-radius: 4px;
+    }
+
+    .score-pass {
+      background-color: #e6f4ea;
+      color: #137333;
+      border: 1px solid #ceead6;
+    }
+
+    .score-fail {
+      background-color: #fce8e6;
+      color: #c5221f;
+      border: 1px solid #fad2cf;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      position: relative;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      padding: 9px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s ease-in-out;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:hover {
+      filter: brightness(0.92);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    /* Tooltip Bubble */
+    .btn::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      background-color: #111827;
+      color: #ffffff;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: 0.2px;
+      text-transform: none;
+      white-space: normal;
+      width: 175px;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+    }
+
+    /* Tooltip Arrow */
+    .btn::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+      border-width: 6px 6px 0 6px;
+      border-style: solid;
+      border-color: #111827 transparent transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .btn:hover::after,
+    .btn:hover::before {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .btn-green { background-color: #2e7d32; color: #ffffff; }
+    .btn-red { background-color: #d32f2f; color: #ffffff; }
+    .btn-purple { background-color: #7c3aed; color: #ffffff; }
+    .btn-yellow { background-color: #f59e0b; color: #111827; }
+    .btn-blue { background-color: #1976d2; color: #ffffff; }
+    .btn-orange { background-color: #ea580c; color: #ffffff; }
+    .btn-gray { background-color: #4b5563; color: #ffffff; }
+
+    .doc-subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #000000;
+      letter-spacing: 1.2px;
+      text-align: center;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= PAGE 1: BOLDFACE (FULL) ================= -->
+  <div class="document-page active-page" id="page-1">
+    
+    <div class="doc-header-title">
+      <span>T-1A Boldface Emergency Procedures and Operating Limitations</span>
+      <span>8 Oct 25</span>
+    </div>
+
+    <div class="meta-row">
+      <div class="meta-cell">
+        <label for="name">Name</label>
+        <input type="text" id="name" autocomplete="off">
+      </div>
+      <div class="meta-cell">
+        <label for="checkedBy">Checked By</label>
+        <input type="text" id="checkedBy" autocomplete="off">
+      </div>
+      <div class="meta-cell">
+        <label for="dateCompleted">Date Completed</label>
+        <input type="text" id="dateCompleted" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="section-title">
+      Section 1. Boldface Emergency Procedures
+    </div>
+
+    <!-- 1. Engine Fire During Ground Operations -->
+    <div class="proc-block" id="block-1">
+      <div class="proc-title">
+        <span>Engine Fire During Ground Operations</span>
+        <span class="status-text" id="badge-1"></span>
+      </div>
+      <textarea class="proc-textarea" id="input-1" spellcheck="false"></textarea>
+      <div class="solution-panel" id="sol-1">
+        <span class="label">Correct Answer:</span>THROTTLES - CUTOFF
+      </div>
+    </div>
+
+    <!-- 2. Engine Fire During Flight -->
+    <div class="proc-block" id="block-2">
+      <div class="proc-title">
+        <span>Engine Fire During Flight</span>
+        <span class="status-text" id="badge-2"></span>
+      </div>
+      <div class="proc2-split-container">
+        <textarea class="proc-textarea" id="input-2-top" spellcheck="false" style="min-height: 28px;"></textarea>
+        <div class="proc2-conditional-cue">
+          If engine fire switchlight remains illuminated, <strong>L</strong> or <strong>R FIRE DET FAIL</strong> illuminates,<br>
+          fire warning test fails, or fire conditions persist:
+        </div>
+        <textarea class="proc-textarea" id="input-2-bottom" spellcheck="false" style="min-height: 64px;"></textarea>
+      </div>
+      <div class="solution-panel" id="sol-2">
+        <span class="label">Correct Answer:</span>THROTTLE - IDLE
+
+(If conditions persist:)
+THROTTLE - CUTOFF
+ENGINE FIRE SWITCH - PUSH
+BOTTLE ARMED SWITCH - PUSH
+      </div>
+    </div>
+
+    <!-- 3. Smoke Or Fumes In Aircraft -->
+    <div class="proc-block" id="block-3">
+      <div class="proc-title">
+        <span>Smoke Or Fumes In Aircraft</span>
+        <span class="status-text" id="badge-3"></span>
+      </div>
+      <textarea class="proc-textarea" id="input-3" spellcheck="false"></textarea>
+      <div class="solution-panel" id="sol-3">
+        <span class="label">Correct Answer:</span>OXYGEN MASKS - DON / 100%
+      </div>
+    </div>
+
+    <!-- 4. Pitch Trim/Roll Trim/Rudder Trim Runaway -->
+    <div class="proc-block" id="block-4">
+      <div class="proc-title">
+        <span>Pitch Trim/Roll Trim/Rudder Trim Runaway</span>
+        <span class="status-text" id="badge-4"></span>
+      </div>
+      <textarea class="proc-textarea" id="input-4" spellcheck="false"></textarea>
+      <div class="solution-panel" id="sol-4">
+        <span class="label">Correct Answer:</span>TRIM INT & A/P DISENGAGE SWITCH - PUSH AND HOLD
+      </div>
+    </div>
+
+    <!-- 5. Low Cabin Pressure -->
+    <div class="proc-block" id="block-5">
+      <div class="proc-title">
+        <span>Low Cabin Pressure</span>
+        <span class="status-text" id="badge-5"></span>
+      </div>
+      <textarea class="proc-textarea" id="input-5" spellcheck="false"></textarea>
+      <div class="solution-panel" id="sol-5">
+        <span class="label">Correct Answer:</span>OXYGEN MASKS - DON / 100%
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ================= PAGE 2: OPERATING LIMITATIONS (FULL 1-TO-1) ================= -->
+  <div class="document-page" id="page-2">
+    <div class="doc-header-title">
+      <span>Section 2. Operating Limitations</span>
+      <span>8 Oct 25</span>
+    </div>
+
+    <!-- Engine Table (All values pre-filled matching blank doc) -->
+    <table class="t1-engine-table">
+      <thead>
+        <tr>
+          <th rowspan="2" style="width: 14%;">Thrust<br>Setting</th>
+          <th rowspan="2" style="width: 13%;">Time Limit<br>(Minutes)</th>
+          <th rowspan="2" style="width: 18%;">Maximum Observed<br>ITT °C</th>
+          <th colspan="2">Engine</th>
+          <th rowspan="2" style="width: 17%;">Oil Pressure (2)<br>PSI</th>
+          <th rowspan="2" style="width: 14%;">Oil Temperature<br>(°C)</th>
+        </tr>
+        <tr>
+          <th style="width: 12%;">N₂%</th>
+          <th style="width: 12%;">N₁%</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight: bold; text-align: left;">Takeoff</td>
+          <td>5 &nbsp;&nbsp;(1)</td>
+          <td>700</td>
+          <td>96</td>
+          <td>104</td>
+          <td>60 &nbsp;to&nbsp; 83</td>
+          <td>10 &nbsp;to&nbsp; 121</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; text-align: left;">Maximum<br>Continuous</td>
+          <td>Continuous</td>
+          <td>680</td>
+          <td>96</td>
+          <td>104</td>
+          <td>60 &nbsp;to&nbsp; 83</td>
+          <td>10 &nbsp;to&nbsp; 121</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; text-align: left;">Idle</td>
+          <td>Continuous</td>
+          <td>580</td>
+          <td>52 &nbsp;&nbsp;(Min)</td>
+          <td class="shaded"></td>
+          <td>40 &nbsp;&nbsp;(Min)</td>
+          <td>-40 &nbsp;to&nbsp; 121</td>
+        </tr>
+        <tr>
+          <td rowspan="3" style="font-weight: bold; text-align: left;">Starting (4)</td>
+          <td rowspan="3" class="shaded"></td>
+          <td>550 – 600 &nbsp;&nbsp;4 SEC</td>
+          <td rowspan="3" class="shaded"></td>
+          <td rowspan="3" class="shaded"></td>
+          <td rowspan="3">(3)</td>
+          <td rowspan="3">-40 &nbsp;&nbsp;(Min)</td>
+        </tr>
+        <tr>
+          <td>600 – 700 &nbsp;&nbsp;2 SEC</td>
+        </tr>
+        <tr>
+          <td>700 – 720 &nbsp;&nbsp;1 SEC</td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold; text-align: left;">Transient</td>
+          <td class="shaded"></td>
+          <td>720 &nbsp;&nbsp;(&nbsp; 2 &nbsp;&nbsp;SEC Max)</td>
+          <td>96</td>
+          <td>106</td>
+          <td>95 &nbsp;&nbsp;for &nbsp;&nbsp;90 &nbsp;SEC</td>
+          <td>135 &nbsp;(Max)<br>(&nbsp; 15 &nbsp;MIN Max)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Engine Notes (All values pre-filled matching blank doc) -->
+    <div class="t1-notes-block">
+      <p><strong>Notes:</strong></p>
+      <p>(1) Time limit starts when throttles first advanced for takeoff thrust.</p>
+      <p>(2) Normal Flight: Normal oil pressure is <span class="prefilled-val">60</span> to <span class="prefilled-val">83</span> PSI at N₂ speeds above <span class="prefilled-val">60</span> %. Oil pressure below <span class="prefilled-val">60</span> PSI is undesirable and should be tolerated only for the safe recovery of the flight, preferably at reduced power setting. Oil pressure below <span class="prefilled-val">40</span> PSI is unsafe.</p>
+      <p>(3) Under cold starting conditions, oil pressure between <span class="prefilled-val">83</span> PSI and <span class="prefilled-val">95</span> PSI is limited to <span class="prefilled-val">90</span> seconds.</p>
+      <p>(4) The ITT during ground starts should normally not exceed <span class="prefilled-val">550</span> °C.</p>
+    </div>
+
+    <!-- Lower Section Grid -->
+    <div class="t1-lower-grid">
+      
+      <!-- LEFT COLUMN -->
+      <div class="t1-col-left">
+        
+        <!-- Pre-filled Pressures & Starting -->
+        <div class="t1-subbox">
+          <div class="t1-row">
+            <span>Normal hydraulic pressure</span>
+            <span class="prefilled-val">1350</span> to <span class="prefilled-val">1550</span> PSI
+          </div>
+          <div class="t1-row">
+            <span>Normal nitrogen pressure</span>
+            <span class="prefilled-val">1350</span> to <span class="prefilled-val">1650</span> PSI
+          </div>
+          <div class="t1-row">
+            <span>Normal oxygen pressure</span>
+            <span class="prefilled-val">1600</span> to <span class="prefilled-val">1850</span> PSI
+          </div>
+          <div class="t1-row">
+            <span>Min battery voltage for battery start</span>
+            <span class="prefilled-val">22</span> volts
+          </div>
+          <div class="t1-row">
+            <span>Max gen load prior to starting second engine</span>
+            <span class="prefilled-val">150</span> amps
+          </div>
+          <div style="margin-top: 4px; font-weight: bold;">Motoring of the starter is limited to:</div>
+          <div class="t1-row">First, <span class="prefilled-val">30</span> seconds then <span class="prefilled-val">5</span> minutes cooling.</div>
+          <div class="t1-row">Second, <span class="prefilled-val">30</span> seconds then <span class="prefilled-val">15</span> minutes cooling.</div>
+          <div class="t1-row">Third, <span class="prefilled-val">30</span> seconds then <span class="prefilled-val">60</span> minutes cooling.</div>
+        </div>
+
+        <!-- TESTED: Fuel Quantities & Imbalances -->
+        <div class="t1-subbox">
+          <div class="t1-row">
+            <span>Emergency Fuel / Minimum Fuel</span>
+            <input class="blank-input w-42" data-ans="300"> lbs / <input class="blank-input w-42" data-ans="500"> lbs
+          </div>
+          <div class="t1-row">
+            <span>Maximum Fuel Imbalance – T.O./Touch & Go</span>
+            <input class="blank-input w-42" data-ans="100"> lbs
+          </div>
+          <div class="t1-row">
+            <span>Max Fuel Imbalance – Flight</span>
+            <input class="blank-input w-42" data-ans="300"> lbs
+          </div>
+          <div class="t1-row">
+            <span>Max Fuel Imbalance – Landing</span>
+            <input class="blank-input w-42" data-ans="300"> lbs
+          </div>
+          <div style="margin-top: 3px; line-height: 1.35;">
+            Fuel crossfeed with 2 engines operating is limited to level flight with less than <input class="blank-input w-42" data-ans="600"> lbs of fuel remains in the wing tank supplying fuel.
+          </div>
+        </div>
+
+        <!-- TESTED: Weights -->
+        <div class="t1-subbox">
+          <div class="t1-row">
+            <span>Max Ramp Weight</span>
+            <input class="blank-input w-65" data-ans="16,300"> lbs
+          </div>
+          <div class="t1-row">
+            <span>Max Takeoff Weight</span>
+            <input class="blank-input w-65" data-ans="16,100"> lbs
+          </div>
+          <div class="t1-row">
+            <span>Max Landing Weight</span>
+            <input class="blank-input w-65" data-ans="15,700"> lbs
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="t1-col-right">
+        
+        <!-- TESTED: Flaps, Speeds & Equipment -->
+        <div class="t1-subbox">
+          <div class="t1-row">
+            <span>Extend flaps to 10 degrees</span>
+            <input class="blank-input w-42" data-ans="200"> KIAS
+          </div>
+          <div class="t1-row">
+            <span>Extend flaps &gt; 10 degrees</span>
+            <input class="blank-input w-42" data-ans="170"> KIAS
+          </div>
+          <div class="t1-row">
+            <span>Flaps extended &gt; 10 degrees</span>
+            <input class="blank-input w-42" data-ans="165"> KIAS
+          </div>
+          <div class="t1-row" style="margin-top: 3px;">
+            <span>Aircraft is limited to</span>
+            <input class="blank-input w-42" data-ans="330"> KIAS or <input class="blank-input w-42" data-ans="0.78"> MACH,
+          </div>
+          <div class="t1-row" style="margin-bottom: 3px;">whichever is less.</div>
+          <div class="t1-row">
+            <span>Landing Gear/Lights</span>
+            <input class="blank-input w-42" data-ans="200"> KIAS / FL <input class="blank-input w-42" data-ans="200">
+          </div>
+          <div class="t1-row">
+            <span>Wipers</span>
+            <input class="blank-input w-42" data-ans="200"> KIAS
+          </div>
+          <div class="t1-row">
+            <span>Tire</span>
+            <input class="blank-input w-42" data-ans="165"> Knots GS
+          </div>
+        </div>
+
+        <!-- TESTED: Winds -->
+        <div class="t1-subbox">
+          <div class="t1-flex-between">
+            <span>Max Tailwind</span>
+            <span><input class="blank-input w-35" data-ans="10"> Knots</span>
+          </div>
+          <div class="t1-flex-between">
+            <span>Max Crosswind (Dry)</span>
+            <span><input class="blank-input w-35" data-ans="25"> Knots</span>
+          </div>
+          <div class="t1-flex-between">
+            <span>Max Crosswind (Wet)</span>
+            <span><input class="blank-input w-35" data-ans="15"> Knots</span>
+          </div>
+          <div class="t1-flex-between">
+            <span>Max Crosswind (Icy)</span>
+            <span><input class="blank-input w-35" data-ans="10"> Knots</span>
+          </div>
+        </div>
+
+        <!-- Altitudes, Autopilot & Anti-Ice -->
+        <div class="t1-subbox">
+          <div class="t1-row">
+            <span>Max Operating Altitude FL</span>
+            <span class="prefilled-val">410</span>
+          </div>
+          <div class="t1-row">
+            <span>Yaw Damper required operable for flight above FL</span>
+            <span class="prefilled-val">280</span>
+          </div>
+          <div class="t1-row" style="margin-top: 2px;">
+            <span>Do not use autopilot below</span>
+            <input class="blank-input w-42" data-ans="200"> FT AGL
+          </div>
+          
+          <div style="margin-top: 5px; line-height: 1.35; font-size: 11px;">
+            Except for preflight checks and landing rollout, do not operate anti-ice systems during ground operations at temperatures above <span class="prefilled-val">10</span> °C OAT/SAT.
+          </div>
+          <div style="margin-top: 3px; line-height: 1.35; font-size: 11px;">
+            Do not operate surface anti-ice systems in flight at ram air temperatures above <span class="prefilled-val">10</span> °C.
+          </div>
+          <div style="margin-top: 3px; line-height: 1.35; font-size: 11px;">
+            To ensure proper wing anti-ice operation, the throttles must be kept at <span class="prefilled-val">70</span> % N2 minimum.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= PAGE RANDOM: DYNAMIC PRACTICE TEST ================= -->
+  <div class="document-page" id="page-random">
+    <div class="doc-header-title">
+      <span>T-1A Boldface Emergency Procedures and Operating Limitations</span>
+      <span>8 Oct 25</span>
+    </div>
+    <div class="meta-row">
+      <div class="meta-cell">
+        <label>Name</label>
+        <input type="text" id="random-name" autocomplete="off">
+      </div>
+      <div class="meta-cell">
+        <label>Checked By</label>
+        <input type="text" id="random-checkedBy" autocomplete="off">
+      </div>
+      <div class="meta-cell">
+        <label>Date Completed</label>
+        <input type="text" id="random-dateCompleted" autocomplete="off">
+      </div>
+    </div>
+    <div class="section-title">
+      <span id="random-drill-title">Randomized Practice Drill</span>
+      <span class="drill-tag">RANDOMIZED</span>
+    </div>
+
+    <!-- Injected Questions Container -->
+    <div id="random-content-container"></div>
+  </div>
+
+  <!-- ================= MINIMALIST CONTROLS PANEL ================= -->
+  <div class="controls-panel">
+    <div id="scoreBanner" class="score-banner"></div>
+    
+    <!-- Standard Navigation Button Group (Exact Requested Order) -->
+    <div class="button-group" id="main-button-group">
+      <!-- 1. CHECK ANSWERS -->
+      <button class="btn btn-green" data-tooltip="Evaluate your answers against Dash-1 standards." onclick="checkCurrentPage()">Check Answers</button>
+      
+      <!-- Conditional Missed Buttons -->
+      <button class="btn btn-orange" id="drillMissedBtn" data-tooltip="Isolate and re-drill only the questions you missed." onclick="drillMissedOnly()" style="display: none;">Drill Missed Only</button>
+      <button class="btn btn-gray" id="showAllBtn" data-tooltip="Restore all questions to view the full sheet." onclick="restoreAllQuestions()" style="display: none;">Show All</button>
+      
+      <!-- 2. RESET -->
+      <button class="btn btn-red" data-tooltip="Clear all inputs and reset highlights on this page." onclick="resetCurrentPage()">Reset</button>
+      
+      <!-- 3. RANDOMIZE -->
+      <button class="btn btn-purple" data-tooltip="Generate a randomized practice drill from this section." onclick="startRandomDrill()">Randomize</button>
+      
+      <!-- 4. KEY -->
+      <button class="btn btn-yellow" data-tooltip="Toggle official answers and verbatim key." onclick="toggleCurrentPageKey()">Key</button>
+      
+      <!-- 5. BLUE BUTTON -->
+      <button class="btn btn-blue" id="flipPageBtn" data-tooltip="Flip between Section 1 (Boldface) and Section 2 (Operating Limitations)." onclick="flipPage()">Flip Page (Section 2 &rarr;)</button>
+    </div>
+
+    <!-- Random Mode Button Group (Exact Requested Order) -->
+    <div class="button-group" id="random-button-group" style="display: none;">
+      <!-- 1. CHECK ANSWERS -->
+      <button class="btn btn-green" data-tooltip="Evaluate your answers against Dash-1 standards." onclick="checkRandomDrill()">Check Answers</button>
+      
+      <!-- Conditional Missed Buttons -->
+      <button class="btn btn-orange" id="rndDrillMissedBtn" data-tooltip="Isolate and re-drill only the questions you missed." onclick="drillMissedOnlyRandom()" style="display: none;">Drill Missed Only</button>
+      <button class="btn btn-gray" id="rndShowAllBtn" data-tooltip="Restore all questions in this drill." onclick="restoreAllRandomQuestions()" style="display: none;">Show All</button>
+      
+      <!-- 2. RESET -->
+      <button class="btn btn-red" data-tooltip="Clear all inputs and reset highlights on this drill." onclick="resetRandomDrill()">Reset</button>
+      
+      <!-- 3. RANDOMIZE (NEW RANDOM) -->
+      <button class="btn btn-purple" data-tooltip="Generate a new set of random questions." onclick="startRandomDrill()">New Random</button>
+      
+      <!-- 4. KEY -->
+      <button class="btn btn-yellow" data-tooltip="Toggle official answers for these questions." onclick="toggleRandomKey()">Key</button>
+      
+      <!-- 5. BLUE BUTTON -->
+      <button class="btn btn-blue" data-tooltip="Exit randomized mode and return to the complete form." onclick="exitRandomDrill()">&larr; Return to Full Form</button>
+    </div>
+
+    <div class="doc-subtitle">CAO 8 OCT 25</div>
+  </div>
+
+  <script>
+    let currentPage = 1;
+    let inRandomMode = false;
+    let activeRandomModeSection = 1;
+
+    /* Master Data for T-1A Section 1 Boldface */
+    const masterKeySec1 = [
+      {
+        id: 1,
+        title: "Engine Fire During Ground Operations",
+        solution: "THROTTLES - CUTOFF",
+        expectedLines: [
+          ["THROTTLES - CUTOFF"]
+        ]
+      },
+      {
+        id: 2,
+        title: "Engine Fire During Flight",
+        isSplit2: true,
+        solution: "THROTTLE - IDLE\n\n(If conditions persist:)\nTHROTTLE - CUTOFF\nENGINE FIRE SWITCH - PUSH\nBOTTLE ARMED SWITCH - PUSH",
+        topExpected: ["THROTTLE - IDLE"],
+        bottomExpected: [
+          ["THROTTLE - CUTOFF"],
+          ["ENGINE FIRE SWITCH - PUSH"],
+          ["BOTTLE ARMED SWITCH - PUSH"]
+        ]
+      },
+      {
+        id: 3,
+        title: "Smoke Or Fumes In Aircraft",
+        solution: "OXYGEN MASKS - DON / 100%",
+        expectedLines: [
+          ["OXYGEN MASKS - DON / 100%", "OXYGEN MASKS - DON/100%"]
+        ]
+      },
+      {
+        id: 4,
+        title: "Pitch Trim/Roll Trim/Rudder Trim Runaway",
+        solution: "TRIM INT & A/P DISENGAGE SWITCH - PUSH AND HOLD",
+        expectedLines: [
+          [
+            "TRIM INT & A/P DISENGAGE SWITCH - PUSH AND HOLD",
+            "TRIM INT AND A/P DISENGAGE SWITCH - PUSH AND HOLD"
+          ]
+        ]
+      },
+      {
+        id: 5,
+        title: "Low Cabin Pressure",
+        solution: "OXYGEN MASKS - DON / 100%",
+        expectedLines: [
+          ["OXYGEN MASKS - DON / 100%", "OXYGEN MASKS - DON/100%"]
+        ]
+      }
+    ];
+
+    /* ================= T-1A TESTED QUESTIONS POOL (ONLY HIGHLIGHTED ITEMS) =================
+       Format: [Category 1] Category 2 -> Category 3 (All Solid Bold Black)
+    ======================================================================================= */
+    const sec2TestedPool = [
+      // Fuel Limits
+      { category: "Fuel", condition: "Emergency / Minimum Fuel", parameter: "Emergency Fuel", type: "single", unit: "lbs", ans: ["300"] },
+      { category: "Fuel", condition: "Emergency / Minimum Fuel", parameter: "Minimum Fuel", type: "single", unit: "lbs", ans: ["500"] },
+      { category: "Fuel", condition: "Imbalance", parameter: "Maximum Fuel Imbalance – T.O./Touch & Go", type: "single", unit: "lbs", ans: ["100"] },
+      { category: "Fuel", condition: "Imbalance", parameter: "Max Fuel Imbalance – Flight", type: "single", unit: "lbs", ans: ["300"] },
+      { category: "Fuel", condition: "Imbalance", parameter: "Max Fuel Imbalance – Landing", type: "single", unit: "lbs", ans: ["300"] },
+      { category: "Fuel", condition: "Crossfeed", parameter: "Level flight with less than ___ lbs of fuel in wing tank supplying fuel", type: "single", unit: "lbs", ans: ["600"] },
+
+      // Weights
+      { category: "Weights", condition: "Limitations", parameter: "Max Ramp Weight", type: "single", unit: "lbs", ans: ["16,300"] },
+      { category: "Weights", condition: "Limitations", parameter: "Max Takeoff Weight", type: "single", unit: "lbs", ans: ["16,100"] },
+      { category: "Weights", condition: "Limitations", parameter: "Max Landing Weight", type: "single", unit: "lbs", ans: ["15,700"] },
+
+      // Flaps & Airspeed Limits
+      { category: "Airspeed Limits", condition: "Flaps", parameter: "Extend flaps to 10 degrees", type: "single", unit: "KIAS", ans: ["200"] },
+      { category: "Airspeed Limits", condition: "Flaps", parameter: "Extend flaps > 10 degrees", type: "single", unit: "KIAS", ans: ["170"] },
+      { category: "Airspeed Limits", condition: "Flaps", parameter: "Flaps extended > 10 degrees", type: "single", unit: "KIAS", ans: ["165"] },
+      { category: "Airspeed Limits", condition: "Maximum Speed", parameter: "Aircraft is limited to (KIAS)", type: "single", unit: "KIAS", ans: ["330"] },
+      { category: "Airspeed Limits", condition: "Maximum Speed", parameter: "Aircraft is limited to (MACH)", type: "single", unit: "MACH", ans: ["0.78"] },
+      { category: "Airspeed Limits", condition: "Landing Gear / Lights", parameter: "KIAS Limit", type: "single", unit: "KIAS", ans: ["200"] },
+      { category: "Airspeed Limits", condition: "Landing Gear / Lights", parameter: "Flight Level (FL)", type: "single", unit: "FL", ans: ["200"] },
+      { category: "Airspeed Limits", condition: "Equipment", parameter: "Wipers", type: "single", unit: "KIAS", ans: ["200"] },
+      { category: "Airspeed Limits", condition: "Equipment", parameter: "Tire", type: "single", unit: "Knots GS", ans: ["165"] },
+
+      // Winds
+      { category: "Winds", condition: "Limitations", parameter: "Max Tailwind", type: "single", unit: "Knots", ans: ["10"] },
+      { category: "Winds", condition: "Crosswinds", parameter: "Max Crosswind (Dry)", type: "single", unit: "Knots", ans: ["25"] },
+      { category: "Winds", condition: "Crosswinds", parameter: "Max Crosswind (Wet)", type: "single", unit: "Knots", ans: ["15"] },
+      { category: "Winds", condition: "Crosswinds", parameter: "Max Crosswind (Icy)", type: "single", unit: "Knots", ans: ["10"] },
+
+      // Autopilot
+      { category: "Autopilot", condition: "Minimum Altitude", parameter: "Do not use autopilot below", type: "single", unit: "FT AGL", ans: ["200"] }
+    ];
+
+    /* ================= NUMPAD AUTO-TAB ENGINE ================= */
+    function setupNumpadAutoTab(containerSelector) {
+      const inputs = Array.from(document.querySelectorAll(`${containerSelector} .blank-input`));
+      inputs.forEach((input, index) => {
+        input.addEventListener('input', function() {
+          const ansAttr = (this.getAttribute('data-ans') || '').replace(/,/g, '');
+          const targetLen = ansAttr.length;
+          const currentCleanLen = this.value.replace(/,/g, '').length;
+          if (targetLen > 0 && currentCleanLen >= targetLen) {
+            if (index + 1 < inputs.length) {
+              inputs[index + 1].focus();
+              inputs[index + 1].select();
+            }
+          }
+        });
+
+        input.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            if (index + 1 < inputs.length) {
+              inputs[index + 1].focus();
+              inputs[index + 1].select();
+            }
+          } else if (e.key === 'Backspace' && this.value === '' && index > 0) {
+            inputs[index - 1].focus();
+          }
+        });
+      });
+    }
+
+    setupNumpadAutoTab('#page-2');
+
+    /* Normalization Utilities */
+    function normalizeLine(line) {
+      if (!line) return '';
+      return line
+        .toUpperCase()
+        .replace(/[\u2010-\u2015\u2212\uFE58\uFE63\uFF0D]/g, '-')
+        .replace(/\s*-\s*/g, ' - ')
+        .replace(/60\s*%/g, '60%')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function normalizeNumber(val) {
+      if (!val) return '';
+      return val
+        .toString()
+        .replace(/,/g, '')
+        .replace(/\+/g, '')
+        .replace(/kias|mach|knots|feet|ft|msl|psi|pph|pounds|lbs|sec|min|%|v|gs|agl|fl|±/gi, '')
+        .trim();
+    }
+
+    function attachAutoUppercase(selector) {
+      document.querySelectorAll(selector).forEach(textarea => {
+        textarea.addEventListener('input', function() {
+          const start = this.selectionStart;
+          const end = this.selectionEnd;
+          this.value = this.value.toUpperCase();
+          this.setSelectionRange(start, end);
+        });
+      });
+    }
+
+    attachAutoUppercase('.proc-textarea');
+
+    /* Page Navigation */
+    function flipPage() {
+      const page1 = document.getElementById('page-1');
+      const page2 = document.getElementById('page-2');
+      const flipBtn = document.getElementById('flipPageBtn');
+      const banner = document.getElementById('scoreBanner');
+      banner.style.display = 'none';
+
+      document.getElementById('drillMissedBtn').style.display = 'none';
+      document.getElementById('showAllBtn').style.display = 'none';
+
+      if (currentPage === 1) {
+        page1.classList.remove('active-page');
+        page2.classList.add('active-page');
+        currentPage = 2;
+        flipBtn.innerHTML = '&larr; Flip Page (Section 1)';
+      } else {
+        page2.classList.remove('active-page');
+        page1.classList.add('active-page');
+        currentPage = 1;
+        flipBtn.innerHTML = 'Flip Page (Section 2 &rarr;)';
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* Check Handler for Full Forms */
+    function checkCurrentPage() {
+      if (currentPage === 1) {
+        checkSection1();
+      } else {
+        checkSection2();
+      }
+    }
+
+    function checkSection1() {
+      let correctCount = 0;
+      const totalCount = masterKeySec1.length;
+      let hasIncorrect = false;
+
+      masterKeySec1.forEach(item => {
+        const block = document.getElementById(`block-${item.id}`);
+        const badge = document.getElementById(`badge-${item.id}`);
+        const solPanel = document.getElementById(`sol-${item.id}`);
+        let isCorrect = true;
+
+        if (item.isSplit2) {
+          const topLines = document.getElementById('input-2-top').value
+            .split('\n').map(l => normalizeLine(l)).filter(l => l.length > 0);
+          const bottomLines = document.getElementById('input-2-bottom').value
+            .split('\n').map(l => normalizeLine(l)).filter(l => l.length > 0);
+
+          if (topLines.length !== 1 || topLines[0] !== "THROTTLE - IDLE") {
+            isCorrect = false;
+          }
+          if (bottomLines.length !== 3) {
+            isCorrect = false;
+          } else {
+            for (let i = 0; i < 3; i++) {
+              const accepted = item.bottomExpected[i].map(v => normalizeLine(v));
+              if (!accepted.includes(bottomLines[i])) {
+                isCorrect = false;
+                break;
+              }
+            }
+          }
+        } else {
+          const textarea = document.getElementById(`input-${item.id}`);
+          const userLines = textarea.value
+            .split('\n')
+            .map(line => normalizeLine(line))
+            .filter(line => line.length > 0);
+
+          if (userLines.length !== item.expectedLines.length) {
+            isCorrect = false;
+          } else {
+            for (let i = 0; i < item.expectedLines.length; i++) {
+              const acceptedVariants = item.expectedLines[i].map(v => normalizeLine(v));
+              if (!acceptedVariants.includes(userLines[i])) {
+                isCorrect = false;
+                break;
+              }
+            }
+          }
+        }
+
+        block.classList.remove('correct-box', 'incorrect-box');
+        if (isCorrect) {
+          block.classList.add('correct-box');
+          badge.textContent = 'Correct';
+          solPanel.style.display = 'none';
+          correctCount++;
+        } else {
+          block.classList.add('incorrect-box');
+          badge.textContent = 'Incorrect';
+          solPanel.style.display = 'block';
+          hasIncorrect = true;
+        }
+      });
+
+      const banner = document.getElementById('scoreBanner');
+      banner.style.display = 'block';
+
+      const drillMissedBtn = document.getElementById('drillMissedBtn');
+      if (correctCount === totalCount) {
+        banner.className = 'score-banner score-pass';
+        banner.textContent = `Section 1: ${correctCount} / ${totalCount} (100%) — All Boldface Correct`;
+        drillMissedBtn.style.display = 'none';
+      } else {
+        banner.className = 'score-banner score-fail';
+        banner.textContent = `Section 1: ${correctCount} / ${totalCount} (${Math.round((correctCount / totalCount) * 100)}%) — Boldface requires 100%`;
+        if (hasIncorrect) drillMissedBtn.style.display = 'inline-block';
+      }
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function checkSection2() {
+      let correctInputs = 0;
+      const inputs = document.querySelectorAll('#page-2 .blank-input');
+      const totalInputs = inputs.length;
+      let hasIncorrect = false;
+
+      inputs.forEach(input => {
+        const expected = input.getAttribute('data-ans');
+        const userVal = input.value.trim();
+        input.classList.remove('correct-input', 'incorrect-input');
+
+        const normUser = normalizeNumber(userVal);
+        const normExp = normalizeNumber(expected);
+
+        // Tolerant numeric match (handles 16,300 vs 16300, 0.78 vs .78)
+        const isMatch = (normUser === normExp) || (parseFloat(normUser) === parseFloat(normExp) && normUser !== '');
+
+        if (isMatch) {
+          input.classList.add('correct-input');
+          correctInputs++;
+        } else {
+          input.classList.add('incorrect-input');
+          input.title = `Correct: ${expected}`;
+          hasIncorrect = true;
+        }
+      });
+
+      const banner = document.getElementById('scoreBanner');
+      banner.style.display = 'block';
+
+      const percentage = Math.round((correctInputs / totalInputs) * 100);
+      const drillMissedBtn = document.getElementById('drillMissedBtn');
+
+      if (correctInputs === totalInputs) {
+        banner.className = 'score-banner score-pass';
+        banner.textContent = `Section 2: ${correctInputs} / ${totalInputs} (100%) — All Tested Limitations Correct`;
+        drillMissedBtn.style.display = 'none';
+      } else {
+        banner.className = 'score-banner score-fail';
+        banner.textContent = `Section 2: ${correctInputs} / ${totalInputs} (${percentage}%) Correct`;
+        if (hasIncorrect) drillMissedBtn.style.display = 'inline-block';
+      }
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* ================= DRILL MISSED ONLY ENGINE ================= */
+    function drillMissedOnly() {
+      if (currentPage === 1) {
+        let firstMissed = null;
+        let countMissed = 0;
+
+        masterKeySec1.forEach(item => {
+          const block = document.getElementById(`block-${item.id}`);
+          const badge = document.getElementById(`badge-${item.id}`);
+          const solPanel = document.getElementById(`sol-${item.id}`);
+
+          if (block.classList.contains('correct-box')) {
+            block.style.display = 'none';
+          } else {
+            block.style.display = 'block';
+            block.classList.remove('incorrect-box');
+            badge.style.display = 'none';
+            solPanel.style.display = 'none';
+            countMissed++;
+
+            if (item.isSplit2) {
+              const t = document.getElementById('input-2-top');
+              const b = document.getElementById('input-2-bottom');
+              t.value = ''; b.value = '';
+              if (!firstMissed) firstMissed = t;
+            } else {
+              const textarea = document.getElementById(`input-${item.id}`);
+              textarea.value = '';
+              if (!firstMissed) firstMissed = textarea;
+            }
+          }
+        });
+
+        document.getElementById('drillMissedBtn').style.display = 'none';
+        document.getElementById('showAllBtn').style.display = 'inline-block';
+        document.getElementById('scoreBanner').className = 'score-banner score-fail';
+        document.getElementById('scoreBanner').textContent = `Drilling Missed Boldface (${countMissed} remaining)...`;
+
+        if (firstMissed) firstMissed.focus();
+      } else {
+        let firstMissed = null;
+        let countMissed = 0;
+
+        document.querySelectorAll('#page-2 .blank-input').forEach(input => {
+          if (input.classList.contains('correct-input')) {
+            input.classList.add('locked-blank');
+            input.tabIndex = -1;
+          } else {
+            input.classList.remove('incorrect-input');
+            input.value = '';
+            countMissed++;
+            if (!firstMissed) firstMissed = input;
+          }
+        });
+
+        document.getElementById('drillMissedBtn').style.display = 'none';
+        document.getElementById('showAllBtn').style.display = 'inline-block';
+        document.getElementById('scoreBanner').className = 'score-banner score-fail';
+        document.getElementById('scoreBanner').textContent = `Drilling Missed Limits (${countMissed} blanks remaining)...`;
+
+        if (firstMissed) firstMissed.focus();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function restoreAllQuestions() {
+      if (currentPage === 1) {
+        masterKeySec1.forEach(item => {
+          document.getElementById(`block-${item.id}`).style.display = 'block';
+        });
+      } else {
+        document.querySelectorAll('#page-2 .blank-input').forEach(input => {
+          input.classList.remove('locked-blank');
+          input.tabIndex = 0;
+        });
+      }
+      document.getElementById('showAllBtn').style.display = 'none';
+      document.getElementById('scoreBanner').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function drillMissedOnlyRandom() {
+      if (activeRandomModeSection === 1) {
+        let firstMissed = null;
+        let countMissed = 0;
+
+        currentRandomSec1Items.forEach(item => {
+          const block = document.getElementById(`random-block-${item.id}`);
+          const badge = document.getElementById(`random-badge-${item.id}`);
+          const solPanel = document.getElementById(`random-sol-${item.id}`);
+
+          if (block.classList.contains('correct-box')) {
+            block.style.display = 'none';
+          } else {
+            block.style.display = 'block';
+            block.classList.remove('incorrect-box');
+            badge.style.display = 'none';
+            solPanel.style.display = 'none';
+            countMissed++;
+
+            if (item.isSplit2) {
+              const t = document.getElementById('rnd-input-2-top');
+              const b = document.getElementById('rnd-input-2-bottom');
+              t.value = ''; b.value = '';
+              if (!firstMissed) firstMissed = t;
+            } else {
+              const textarea = document.getElementById(`random-input-${item.id}`);
+              textarea.value = '';
+              if (!firstMissed) firstMissed = textarea;
+            }
+          }
+        });
+
+        document.getElementById('rndDrillMissedBtn').style.display = 'none';
+        document.getElementById('rndShowAllBtn').style.display = 'inline-block';
+        document.getElementById('scoreBanner').className = 'score-banner score-fail';
+        document.getElementById('scoreBanner').textContent = `Drilling Missed Questions (${countMissed} remaining)...`;
+
+        if (firstMissed) firstMissed.focus();
+      } else {
+        let firstMissed = null;
+        let countMissed = 0;
+
+        currentRandomSec2Items.forEach((q, idx) => {
+          const block = document.getElementById(`rnd2-block-${idx}`);
+          const badge = document.getElementById(`rnd2-badge-${idx}`);
+          const solPanel = document.getElementById(`rnd2-sol-${idx}`);
+
+          if (block.classList.contains('correct-box')) {
+            block.style.display = 'none';
+          } else {
+            block.style.display = 'block';
+            block.classList.remove('incorrect-box');
+            badge.style.display = 'none';
+            solPanel.style.display = 'none';
+            countMissed++;
+
+            const inp = document.getElementById(`rnd2-input-${idx}-0`);
+            inp.value = '';
+            inp.classList.remove('incorrect-input');
+            if (!firstMissed) firstMissed = inp;
+          }
+        });
+
+        document.getElementById('rndDrillMissedBtn').style.display = 'none';
+        document.getElementById('rndShowAllBtn').style.display = 'inline-block';
+        document.getElementById('scoreBanner').className = 'score-banner score-fail';
+        document.getElementById('scoreBanner').textContent = `Drilling Missed Spot Drill (${countMissed} remaining)...`;
+
+        if (firstMissed) firstMissed.focus();
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function restoreAllRandomQuestions() {
+      if (activeRandomModeSection === 1) {
+        currentRandomSec1Items.forEach(item => {
+          document.getElementById(`random-block-${item.id}`).style.display = 'block';
+        });
+      } else {
+        currentRandomSec2Items.forEach((q, idx) => {
+          document.getElementById(`rnd2-block-${idx}`).style.display = 'block';
+        });
+      }
+      document.getElementById('rndShowAllBtn').style.display = 'none';
+      document.getElementById('scoreBanner').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function resetCurrentPage() {
+      if (currentPage === 1) {
+        masterKeySec1.forEach(item => {
+          const block = document.getElementById(`block-${item.id}`);
+          block.style.display = 'block';
+          block.classList.remove('correct-box', 'incorrect-box');
+          document.getElementById(`badge-${item.id}`).style.display = 'none';
+          document.getElementById(`sol-${item.id}`).style.display = 'none';
+
+          if (item.isSplit2) {
+            document.getElementById('input-2-top').value = '';
+            document.getElementById('input-2-bottom').value = '';
+          } else {
+            document.getElementById(`input-${item.id}`).value = '';
+          }
+        });
+      } else {
+        document.querySelectorAll('#page-2 .blank-input').forEach(input => {
+          input.value = '';
+          input.classList.remove('correct-input', 'incorrect-input', 'locked-blank');
+          input.tabIndex = 0;
+        });
+      }
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.getElementById('drillMissedBtn').style.display = 'none';
+      document.getElementById('showAllBtn').style.display = 'none';
+    }
+
+    let sec1KeyVisible = false;
+    let sec2KeyVisible = false;
+
+    function toggleCurrentPageKey() {
+      if (currentPage === 1) {
+        sec1KeyVisible = !sec1KeyVisible;
+        masterKeySec1.forEach(item => {
+          document.getElementById(`sol-${item.id}`).style.display = sec1KeyVisible ? 'block' : 'none';
+        });
+      } else {
+        sec2KeyVisible = !sec2KeyVisible;
+        document.querySelectorAll('#page-2 .blank-input').forEach(input => {
+          input.placeholder = sec2KeyVisible ? input.getAttribute('data-ans') : '';
+        });
+      }
+    }
+
+    /* ================= RANDOMIZE DRILL GENERATOR ================= */
+    let currentRandomSec1Items = [];
+    let currentRandomSec2Items = [];
+
+    function startRandomDrill() {
+      inRandomMode = true;
+      activeRandomModeSection = currentPage;
+
+      document.getElementById('page-1').classList.remove('active-page');
+      document.getElementById('page-2').classList.remove('active-page');
+      document.getElementById('page-random').classList.add('active-page');
+
+      document.getElementById('main-button-group').style.display = 'none';
+      document.getElementById('random-button-group').style.display = 'flex';
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.getElementById('rndDrillMissedBtn').style.display = 'none';
+      document.getElementById('rndShowAllBtn').style.display = 'none';
+
+      const container = document.getElementById('random-content-container');
+      const titleSpan = document.getElementById('random-drill-title');
+
+      if (activeRandomModeSection === 1) {
+        titleSpan.textContent = "Section 1. Boldface Emergency Procedures — Randomized 3 Question Drill";
+        
+        const shuffled = [...masterKeySec1].sort(() => 0.5 - Math.random());
+        currentRandomSec1Items = shuffled.slice(0, 3);
+
+        let html = '';
+        currentRandomSec1Items.forEach((item, index) => {
+          if (item.isSplit2) {
+            html += `
+              <div class="proc-block" id="random-block-2">
+                <div class="proc-title">
+                  <span>${index + 1}. ${item.title}</span>
+                  <span class="status-text" id="random-badge-2"></span>
+                </div>
+                <div class="proc2-split-container">
+                  <textarea class="proc-textarea" id="rnd-input-2-top" spellcheck="false" style="min-height: 28px;"></textarea>
+                  <div class="proc2-conditional-cue">
+                    If engine fire switchlight remains illuminated, <strong>L</strong> or <strong>R FIRE DET FAIL</strong> illuminates,<br>
+                    fire warning test fails, or fire conditions persist:
+                  </div>
+                  <textarea class="proc-textarea" id="rnd-input-2-bottom" spellcheck="false" style="min-height: 60px;"></textarea>
+                </div>
+                <div class="solution-panel" id="random-sol-2">
+                  <span class="label">Correct Answer:</span>${item.solution}
+                </div>
+              </div>
+            `;
+          } else {
+            html += `
+              <div class="proc-block" id="random-block-${item.id}">
+                <div class="proc-title">
+                  <span>${index + 1}. ${item.title}</span>
+                  <span class="status-text" id="random-badge-${item.id}"></span>
+                </div>
+                <textarea class="proc-textarea" id="random-input-${item.id}" spellcheck="false" style="min-height: 48px;"></textarea>
+                <div class="solution-panel" id="random-sol-${item.id}">
+                  <span class="label">Correct Answer:</span>${item.solution}
+                </div>
+              </div>
+            `;
+          }
+        });
+        container.innerHTML = html;
+        attachAutoUppercase('#page-random .proc-textarea');
+      } else {
+        // Section 2: Pick 10 INDIVIDUAL RANDOMIZED QUESTIONS FROM TESTED POOL
+        titleSpan.textContent = "Section 2. Operating Limitations — Randomized 10 Question Drill";
+        
+        const shuffled = [...sec2TestedPool].sort(() => 0.5 - Math.random());
+        currentRandomSec2Items = shuffled.slice(0, 10);
+
+        let html = '';
+        currentRandomSec2Items.forEach((q, idx) => {
+          const qNum = idx + 1;
+
+          // Format: [Category 1] Category 2 -> Category 3 (Solid Bold Black)
+          let headerHTML = `<span class="q-cat1">[${q.category}]</span> <span class="q-cat2">${q.condition}</span>`;
+          if (q.parameter && q.parameter.trim() !== "") {
+            headerHTML += ` <span class="q-arrow">&rarr;</span> <span class="q-cat3">${q.parameter}</span>`;
+          }
+
+          html += `
+            <div class="random-q-item" id="rnd2-block-${idx}">
+              <div class="random-q-header">
+                <span><strong>${qNum}.</strong> ${headerHTML}</span>
+                <span class="status-text" id="rnd2-badge-${idx}"></span>
+              </div>
+              <div class="random-q-body">
+                <input class="blank-input w-65" id="rnd2-input-${idx}-0" data-ans="${q.ans[0]}" autocomplete="off">
+                <span>${q.unit}</span>
+              </div>
+              <div class="solution-panel" id="rnd2-sol-${idx}">
+                <span class="label">Correct Answer:</span>${q.ans[0]} ${q.unit}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+        setupNumpadAutoTab('#page-random');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function exitRandomDrill() {
+      inRandomMode = false;
+      document.getElementById('page-random').classList.remove('active-page');
+      
+      if (currentPage === 1) {
+        document.getElementById('page-1').classList.add('active-page');
+      } else {
+        document.getElementById('page-2').classList.add('active-page');
+      }
+
+      document.getElementById('main-button-group').style.display = 'flex';
+      document.getElementById('random-button-group').style.display = 'none';
+      document.getElementById('scoreBanner').style.display = 'none';
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function checkRandomDrill() {
+      if (activeRandomModeSection === 1) {
+        let correctCount = 0;
+        const totalCount = currentRandomSec1Items.length;
+        let hasIncorrect = false;
+
+        currentRandomSec1Items.forEach(item => {
+          const block = document.getElementById(`random-block-${item.id}`);
+          const badge = document.getElementById(`random-badge-${item.id}`);
+          const solPanel = document.getElementById(`random-sol-${item.id}`);
+          let isCorrect = true;
+
+          if (item.isSplit2) {
+            const topLines = document.getElementById('rnd-input-2-top').value
+              .split('\n').map(l => normalizeLine(l)).filter(l => l.length > 0);
+            const bottomLines = document.getElementById('rnd-input-2-bottom').value
+              .split('\n').map(l => normalizeLine(l)).filter(l => l.length > 0);
+
+            if (topLines.length !== 1 || topLines[0] !== "THROTTLE - IDLE") isCorrect = false;
+            if (bottomLines.length !== 3) {
+              isCorrect = false;
+            } else {
+              for (let i = 0; i < 3; i++) {
+                const accepted = item.bottomExpected[i].map(v => normalizeLine(v));
+                if (!accepted.includes(bottomLines[i])) {
+                  isCorrect = false;
+                  break;
+                }
+              }
+            }
+          } else {
+            const textarea = document.getElementById(`random-input-${item.id}`);
+            const userLines = textarea.value
+              .split('\n')
+              .map(line => normalizeLine(line))
+              .filter(line => line.length > 0);
+
+            if (userLines.length !== item.expectedLines.length) {
+              isCorrect = false;
+            } else {
+              for (let i = 0; i < item.expectedLines.length; i++) {
+                const acceptedVariants = item.expectedLines[i].map(v => normalizeLine(v));
+                if (!acceptedVariants.includes(userLines[i])) {
+                  isCorrect = false;
+                  break;
+                }
+              }
+            }
+          }
+
+          block.classList.remove('correct-box', 'incorrect-box');
+          if (isCorrect) {
+            block.classList.add('correct-box');
+            badge.textContent = 'Correct';
+            solPanel.style.display = 'none';
+            correctCount++;
+          } else {
+            block.classList.add('incorrect-box');
+            badge.textContent = 'Incorrect';
+            solPanel.style.display = 'block';
+            hasIncorrect = true;
+          }
+        });
+
+        const banner = document.getElementById('scoreBanner');
+        banner.style.display = 'block';
+
+        const rndDrillMissedBtn = document.getElementById('rndDrillMissedBtn');
+        if (correctCount === totalCount) {
+          banner.className = 'score-banner score-pass';
+          banner.textContent = `Random Boldface Drill: ${correctCount} / ${totalCount} (100%) — Perfect Score!`;
+          rndDrillMissedBtn.style.display = 'none';
+        } else {
+          banner.className = 'score-banner score-fail';
+          banner.textContent = `Random Boldface Drill: ${correctCount} / ${totalCount} (${Math.round((correctCount / totalCount) * 100)}%) — Boldface requires 100%`;
+          if (hasIncorrect) rndDrillMissedBtn.style.display = 'inline-block';
+        }
+        banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        let correctCount = 0;
+        const totalCount = currentRandomSec2Items.length;
+        let hasIncorrect = false;
+
+        currentRandomSec2Items.forEach((q, idx) => {
+          const block = document.getElementById(`rnd2-block-${idx}`);
+          const badge = document.getElementById(`rnd2-badge-${idx}`);
+          const solPanel = document.getElementById(`rnd2-sol-${idx}`);
+
+          const input = document.getElementById(`rnd2-input-${idx}-0`);
+          const normUser = normalizeNumber(input.value.trim());
+          const normExp = normalizeNumber(q.ans[0]);
+          const match = (normUser === normExp) || (parseFloat(normUser) === parseFloat(normExp) && normUser !== '');
+
+          input.classList.remove('correct-input', 'incorrect-input');
+          if (match) {
+            input.classList.add('correct-input');
+            block.classList.remove('incorrect-box');
+            block.classList.add('correct-box');
+            badge.textContent = 'Correct';
+            solPanel.style.display = 'none';
+            correctCount++;
+          } else {
+            input.classList.add('incorrect-input');
+            block.classList.remove('correct-box');
+            block.classList.add('incorrect-box');
+            badge.textContent = 'Incorrect';
+            solPanel.style.display = 'block';
+            hasIncorrect = true;
+          }
+        });
+
+        const banner = document.getElementById('scoreBanner');
+        banner.style.display = 'block';
+
+        const pct = Math.round((correctCount / totalCount) * 100);
+        const rndDrillMissedBtn = document.getElementById('rndDrillMissedBtn');
+        if (correctCount === totalCount) {
+          banner.className = 'score-banner score-pass';
+          banner.textContent = `Section 2 Spot Drill: ${correctCount} / ${totalCount} (100%) — All Questions Correct!`;
+          rndDrillMissedBtn.style.display = 'none';
+        } else {
+          banner.className = 'score-banner score-fail';
+          banner.textContent = `Section 2 Spot Drill: ${correctCount} / ${totalCount} (${pct}%) Correct`;
+          if (hasIncorrect) rndDrillMissedBtn.style.display = 'inline-block';
+        }
+        banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function resetRandomDrill() {
+      if (activeRandomModeSection === 1) {
+        currentRandomSec1Items.forEach(item => {
+          const block = document.getElementById(`random-block-${item.id}`);
+          block.style.display = 'block';
+          block.classList.remove('correct-box', 'incorrect-box');
+          const badge = document.getElementById(`random-badge-${item.id}`);
+          if (badge) badge.style.display = 'none';
+          const solPanel = document.getElementById(`random-sol-${item.id}`);
+          if (solPanel) solPanel.style.display = 'none';
+
+          if (item.isSplit2) {
+            document.getElementById('rnd-input-2-top').value = '';
+            document.getElementById('rnd-input-2-bottom').value = '';
+          } else {
+            const textarea = document.getElementById(`random-input-${item.id}`);
+            if (textarea) textarea.value = '';
+          }
+        });
+      } else {
+        currentRandomSec2Items.forEach((q, idx) => {
+          const block = document.getElementById(`rnd2-block-${idx}`);
+          block.style.display = 'block';
+          block.classList.remove('correct-box', 'incorrect-box');
+          const badge = document.getElementById(`rnd2-badge-${idx}`);
+          if (badge) badge.style.display = 'none';
+          const solPanel = document.getElementById(`rnd2-sol-${idx}`);
+          if (solPanel) solPanel.style.display = 'none';
+
+          const input = document.getElementById(`rnd2-input-${idx}-0`);
+          if (input) { input.value = ''; input.classList.remove('correct-input', 'incorrect-input'); }
+        });
+      }
+      document.getElementById('scoreBanner').style.display = 'none';
+      document.getElementById('rndDrillMissedBtn').style.display = 'none';
+      document.getElementById('rndShowAllBtn').style.display = 'none';
+    }
+
+    let randomKeyVisible = false;
+    function toggleRandomKey() {
+      randomKeyVisible = !randomKeyVisible;
+      if (activeRandomModeSection === 1) {
+        currentRandomSec1Items.forEach(item => {
+          const sol = document.getElementById(`random-sol-${item.id}`);
+          if (sol) sol.style.display = randomKeyVisible ? 'block' : 'none';
+        });
+      } else {
+        currentRandomSec2Items.forEach((q, idx) => {
+          const sol = document.getElementById(`rnd2-sol-${idx}`);
+          if (sol) sol.style.display = randomKeyVisible ? 'block' : 'none';
+        });
+      }
+    }
+
+    // Default current date
+    const todayStr = new Date().toLocaleDateString('en-US');
+    document.getElementById('dateCompleted').value = todayStr;
+    const rndDate = document.getElementById('random-dateCompleted');
+    if (rndDate) rndDate.value = todayStr;
+  </script>
+</body>
+</html>

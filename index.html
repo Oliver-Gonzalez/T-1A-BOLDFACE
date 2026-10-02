@@ -15,25 +15,26 @@
       background-color: #f0f2f5;
       font-family: "Times New Roman", Times, Georgia, serif;
       color: #000;
-      padding: 24px 12px 60px;
+      padding: clamp(14px, 2.5vw, 28px) clamp(8px, 2vw, 16px) 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      min-height: 100vh;
     }
 
     /* ================= TOP RIGHT HAMBURGER NAVIGATION ================= */
     .nav-menu-container {
       position: fixed;
-      top: 18px;
-      right: 20px;
+      top: clamp(12px, 2vw, 18px);
+      right: clamp(12px, 2vw, 20px);
       z-index: 2000;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     .hamburger-btn {
-      width: 42px;
-      height: 42px;
+      width: clamp(38px, 5vw, 42px);
+      height: clamp(38px, 5vw, 42px);
       background-color: #ffffff;
       border: 1.5px solid #000000;
       border-radius: 6px;
@@ -57,7 +58,7 @@
 
     .hamburger-btn span {
       display: block;
-      width: 20px;
+      width: clamp(18px, 2.5vw, 20px);
       height: 2px;
       background-color: #000000;
       border-radius: 1px;
@@ -84,7 +85,7 @@
       position: absolute;
       top: calc(100% + 8px);
       right: 0;
-      width: 290px;
+      width: min(290px, 86vw);
       background: #ffffff;
       border: 2px solid #000000;
       border-radius: 8px;
@@ -179,14 +180,15 @@
       margin: 4px 0;
     }
 
-    /* 1-to-1 Document Container (960px width) */
+    /* Dynamic Fluid Document Container */
     .document-page {
       background: #ffffff;
       width: 100%;
-      max-width: 960px;
+      max-width: min(960px, 100%);
       border: 2px solid #000;
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
       display: none;
+      margin: 0 auto;
     }
 
     .document-page.active-page {
@@ -199,16 +201,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 15.5px;
+      font-size: clamp(12.5px, 1.8vw, 15.5px);
       font-weight: bold;
-      padding: 6px 12px;
+      padding: 6px clamp(8px, 1.5vw, 12px);
+      gap: 8px;
     }
 
     .meta-row {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       border-bottom: 1.5px solid #000;
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.5vw, 13.5px);
+    }
+
+    @media (max-width: 580px) {
+      .meta-row {
+        grid-template-columns: 1fr;
+      }
+      .meta-cell:not(:last-child) {
+        border-right: none;
+        border-bottom: 1px solid #000;
+      }
     }
 
     .meta-cell {
@@ -222,7 +235,7 @@
     }
 
     .meta-cell label {
-      font-size: 13px;
+      font-size: clamp(11.5px, 1.4vw, 13px);
       margin-right: 6px;
       white-space: nowrap;
     }
@@ -232,13 +245,13 @@
       outline: none;
       width: 100%;
       font-family: "Times New Roman", Times, serif;
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.5vw, 13.5px);
       background: transparent;
     }
 
     .section-title {
       border-bottom: 1.5px solid #000;
-      font-size: 14.5px;
+      font-size: clamp(13px, 1.6vw, 14.5px);
       font-weight: bold;
       padding: 5px 8px;
       background: #fff;
@@ -260,7 +273,7 @@
     /* ================= SECTION 1 BOLDFACE BLOCKS ================= */
     .proc-block {
       border-bottom: 1.5px solid #000;
-      padding: 8px 12px 10px;
+      padding: clamp(6px, 1.2vw, 8px) clamp(8px, 1.6vw, 12px) clamp(8px, 1.4vw, 10px);
       transition: background-color 0.2s ease;
       position: relative;
     }
@@ -270,12 +283,13 @@
     }
 
     .proc-title {
-      font-size: 14px;
+      font-size: clamp(12.5px, 1.6vw, 14px);
       font-weight: bold;
       margin-bottom: 4px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      line-height: 1.35;
     }
 
     .status-text {
@@ -290,7 +304,7 @@
     .proc-textarea {
       width: 100%;
       font-family: "Times New Roman", Times, serif;
-      font-size: 14.5px;
+      font-size: clamp(13px, 1.6vw, 14.5px);
       font-weight: bold;
       line-height: 1.45;
       color: #000;
@@ -309,7 +323,7 @@
     }
 
     .proc2-conditional-cue {
-      font-size: 12.5px;
+      font-size: clamp(11px, 1.4vw, 12.5px);
       text-align: center;
       line-height: 1.35;
       padding: 4px 10px;
@@ -322,18 +336,25 @@
     #block-4 .proc-textarea { min-height: 48px; }
     #block-5 .proc-textarea { min-height: 48px; }
 
-    /* ================= SECTION 2 1-TO-1 TABLES ================= */
+    /* ================= SECTION 2 ENGINE TABLE & RESPONSIVENESS ================= */
+    .t1-table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-bottom: 1.5px solid #000;
+    }
+
     table.t1-engine-table {
       width: 100%;
+      min-width: 540px;
       border-collapse: collapse;
-      font-size: 11.5px;
+      font-size: clamp(10px, 1.3vw, 11.5px);
       table-layout: fixed;
-      border-bottom: 1.5px solid #000;
     }
 
     table.t1-engine-table th, table.t1-engine-table td {
       border: 1px solid #000;
-      padding: 3px 4px;
+      padding: 3px clamp(2px, 0.4vw, 4px);
       text-align: center;
       vertical-align: middle;
     }
@@ -350,7 +371,7 @@
     /* Engine Notes */
     .t1-notes-block {
       padding: 6px 8px;
-      font-size: 10.5px;
+      font-size: clamp(9.5px, 1.25vw, 10.5px);
       line-height: 1.4;
       border-bottom: 1.5px solid #000;
       text-align: justify;
@@ -360,11 +381,21 @@
       margin-bottom: 3px;
     }
 
-    /* Lower Section: 2 Columns */
+    /* Lower Section: Responsive 2 Columns */
     .t1-lower-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       width: 100%;
+    }
+
+    @media (max-width: 740px) {
+      .t1-lower-grid {
+        grid-template-columns: 1fr;
+      }
+      .t1-col-left {
+        border-right: none !important;
+        border-bottom: 1.5px solid #000 !important;
+      }
     }
 
     .t1-col-left {
@@ -381,7 +412,7 @@
     .t1-subbox {
       border-bottom: 1.5px solid #000;
       padding: 6px 8px;
-      font-size: 11.5px;
+      font-size: clamp(10.5px, 1.4vw, 11.5px);
       line-height: 1.45;
     }
 
@@ -403,6 +434,7 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 2px;
+      gap: 6px;
     }
 
     .prefilled-val {
@@ -422,7 +454,7 @@
       background: transparent;
       outline: none;
       font-family: "Times New Roman", Times, serif;
-      font-size: 11.5px;
+      font-size: clamp(10.5px, 1.4vw, 11.5px);
       font-weight: bold;
       text-align: center;
       padding: 0 1px;
@@ -447,7 +479,7 @@
     /* ================= RANDOM QUESTIONS 10-ITEM LAYOUT (BOLD BLACK) ================= */
     .random-q-item {
       border-bottom: 1.5px solid #000;
-      padding: 11px 14px;
+      padding: 11px clamp(8px, 1.6vw, 14px);
       transition: background-color 0.2s ease;
       position: relative;
     }
@@ -457,7 +489,7 @@
     }
 
     .random-q-header {
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.6vw, 13.5px);
       margin-bottom: 7px;
       display: flex;
       justify-content: space-between;
@@ -465,10 +497,11 @@
       line-height: 1.4;
       font-weight: bold;
       color: #000000;
+      gap: 6px;
     }
 
     .random-q-standard {
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.6vw, 13.5px);
       font-weight: bold;
       color: #000000;
       margin-left: 3px;
@@ -487,7 +520,7 @@
     }
 
     .random-q-body {
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.6vw, 13.5px);
       display: flex;
       align-items: center;
       gap: 6px;
@@ -495,7 +528,7 @@
     }
 
     .random-q-body .blank-input {
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.6vw, 13.5px);
       padding: 1px 4px;
     }
 
@@ -555,10 +588,10 @@
       letter-spacing: 0.4px;
     }
 
-    /* ================= CONTROLS & MINIMALIST BUTTONS ================= */
+    /* ================= CONTROLS & RESPONSIVE BUTTONS ================= */
     .controls-panel {
       width: 100%;
-      max-width: 960px;
+      max-width: min(960px, 100%);
       margin-top: 20px;
       display: flex;
       flex-direction: column;
@@ -572,7 +605,7 @@
       padding: 10px 14px;
       text-align: center;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 13.5px;
+      font-size: clamp(12px, 1.6vw, 13.5px);
       font-weight: 500;
       letter-spacing: 0.2px;
       border-radius: 4px;
@@ -592,19 +625,20 @@
 
     .button-group {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       justify-content: center;
       flex-wrap: wrap;
     }
 
+    /* Fluid Minimalist Button */
     .btn {
       position: relative;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      font-size: 12px;
+      font-size: clamp(11px, 1.4vw, 12px);
       font-weight: 600;
       letter-spacing: 0.4px;
       text-transform: uppercase;
-      padding: 9px 18px;
+      padding: clamp(7px, 1.2vw, 9px) clamp(12px, 1.8vw, 18px);
       border-radius: 4px;
       cursor: pointer;
       border: none;
@@ -696,6 +730,15 @@
       .nav-menu-container, .controls-panel {
         display: none !important;
       }
+      body {
+        padding: 0;
+        background: #fff;
+      }
+      .document-page {
+        border: none;
+        box-shadow: none;
+        max-width: 100%;
+      }
     }
   </style>
 </head>
@@ -740,6 +783,18 @@
       <!-- MCSTS Playtime Calculator -->
       <a href="https://mcsts-playtime-calculator.pages.dev/" class="nav-item nav-item-aux">
         <span>MCSTS PLAYTIME CALCULATOR</span>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
+
+      <!-- TF Bomb-Run Calculator -->
+      <a href="https://tf-bomb-run-calc.pages.dev/" class="nav-item nav-item-aux">
+        <span>TF BOMB-RUN CALCULATOR</span>
+        <span class="nav-arrow">&rarr;</span>
+      </a>
+
+      <!-- Instrument Approach Timer -->
+      <a href="https://approach-timer.pages.dev/" class="nav-item nav-item-aux">
+        <span>INSTRUMENT APPROACH TIMER</span>
         <span class="nav-arrow">&rarr;</span>
       </a>
     </div>
@@ -846,83 +901,85 @@ BOTTLE ARMED SWITCH - PUSH
 
   </div>
 
-  <!-- ================= PAGE 2: OPERATING LIMITATIONS (FULL 1-TO-1) ================= -->
+  <!-- ================= PAGE 2: OPERATING LIMITATIONS (FULL 1-TO-1 DYNAMIC) ================= -->
   <div class="document-page" id="page-2">
     <div class="doc-header-title">
       <span>Section 2. Operating Limitations</span>
       <span>8 Oct 25</span>
     </div>
 
-    <!-- Engine Table (All values pre-filled matching blank doc) -->
-    <table class="t1-engine-table">
-      <thead>
-        <tr>
-          <th rowspan="2" style="width: 14%;">Thrust<br>Setting</th>
-          <th rowspan="2" style="width: 13%;">Time Limit<br>(Minutes)</th>
-          <th rowspan="2" style="width: 18%;">Maximum Observed<br>ITT °C</th>
-          <th colspan="2">Engine</th>
-          <th rowspan="2" style="width: 17%;">Oil Pressure (2)<br>PSI</th>
-          <th rowspan="2" style="width: 14%;">Oil Temperature<br>(°C)</th>
-        </tr>
-        <tr>
-          <th style="width: 12%;">N₂%</th>
-          <th style="width: 12%;">N₁%</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td style="font-weight: bold; text-align: left;">Takeoff</td>
-          <td>5 &nbsp;&nbsp;(1)</td>
-          <td>700</td>
-          <td>96</td>
-          <td>104</td>
-          <td>60 &nbsp;to&nbsp; 83</td>
-          <td>10 &nbsp;to&nbsp; 121</td>
-        </tr>
-        <tr>
-          <td style="font-weight: bold; text-align: left;">Maximum<br>Continuous</td>
-          <td>Continuous</td>
-          <td>680</td>
-          <td>96</td>
-          <td>104</td>
-          <td>60 &nbsp;to&nbsp; 83</td>
-          <td>10 &nbsp;to&nbsp; 121</td>
-        </tr>
-        <tr>
-          <td style="font-weight: bold; text-align: left;">Idle</td>
-          <td>Continuous</td>
-          <td>580</td>
-          <td>52 &nbsp;&nbsp;(Min)</td>
-          <td class="shaded"></td>
-          <td>40 &nbsp;&nbsp;(Min)</td>
-          <td>-40 &nbsp;to&nbsp; 121</td>
-        </tr>
-        <tr>
-          <td rowspan="3" style="font-weight: bold; text-align: left;">Starting (4)</td>
-          <td rowspan="3" class="shaded"></td>
-          <td>550 – 600 &nbsp;&nbsp;4 SEC</td>
-          <td rowspan="3" class="shaded"></td>
-          <td rowspan="3" class="shaded"></td>
-          <td rowspan="3">(3)</td>
-          <td rowspan="3">-40 &nbsp;&nbsp;(Min)</td>
-        </tr>
-        <tr>
-          <td>600 – 700 &nbsp;&nbsp;2 SEC</td>
-        </tr>
-        <tr>
-          <td>700 – 720 &nbsp;&nbsp;1 SEC</td>
-        </tr>
-        <tr>
-          <td style="font-weight: bold; text-align: left;">Transient</td>
-          <td class="shaded"></td>
-          <td>720 &nbsp;&nbsp;(&nbsp; 2 &nbsp;&nbsp;SEC Max)</td>
-          <td>96</td>
-          <td>106</td>
-          <td>95 &nbsp;&nbsp;for &nbsp;&nbsp;90 &nbsp;SEC</td>
-          <td>135 &nbsp;(Max)<br>(&nbsp; 15 &nbsp;MIN Max)</td>
-        </tr>
-      </tbody>
-    </table>
+    <!-- Engine Table (Responsive wrapper prevents phone squishing) -->
+    <div class="t1-table-responsive">
+      <table class="t1-engine-table">
+        <thead>
+          <tr>
+            <th rowspan="2" style="width: 14%;">Thrust<br>Setting</th>
+            <th rowspan="2" style="width: 13%;">Time Limit<br>(Minutes)</th>
+            <th rowspan="2" style="width: 18%;">Maximum Observed<br>ITT °C</th>
+            <th colspan="2">Engine</th>
+            <th rowspan="2" style="width: 17%;">Oil Pressure (2)<br>PSI</th>
+            <th rowspan="2" style="width: 14%;">Oil Temperature<br>(°C)</th>
+          </tr>
+          <tr>
+            <th style="width: 12%;">N₂%</th>
+            <th style="width: 12%;">N₁%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight: bold; text-align: left;">Takeoff</td>
+            <td>5 &nbsp;&nbsp;(1)</td>
+            <td>700</td>
+            <td>96</td>
+            <td>104</td>
+            <td>60 &nbsp;to&nbsp; 83</td>
+            <td>10 &nbsp;to&nbsp; 121</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; text-align: left;">Maximum<br>Continuous</td>
+            <td>Continuous</td>
+            <td>680</td>
+            <td>96</td>
+            <td>104</td>
+            <td>60 &nbsp;to&nbsp; 83</td>
+            <td>10 &nbsp;to&nbsp; 121</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; text-align: left;">Idle</td>
+            <td>Continuous</td>
+            <td>580</td>
+            <td>52 &nbsp;&nbsp;(Min)</td>
+            <td class="shaded"></td>
+            <td>40 &nbsp;&nbsp;(Min)</td>
+            <td>-40 &nbsp;to&nbsp; 121</td>
+          </tr>
+          <tr>
+            <td rowspan="3" style="font-weight: bold; text-align: left;">Starting (4)</td>
+            <td rowspan="3" class="shaded"></td>
+            <td>550 – 600 &nbsp;&nbsp;4 SEC</td>
+            <td rowspan="3" class="shaded"></td>
+            <td rowspan="3" class="shaded"></td>
+            <td rowspan="3">(3)</td>
+            <td rowspan="3">-40 &nbsp;&nbsp;(Min)</td>
+          </tr>
+          <tr>
+            <td>600 – 700 &nbsp;&nbsp;2 SEC</td>
+          </tr>
+          <tr>
+            <td>700 – 720 &nbsp;&nbsp;1 SEC</td>
+          </tr>
+          <tr>
+            <td style="font-weight: bold; text-align: left;">Transient</td>
+            <td class="shaded"></td>
+            <td>720 &nbsp;&nbsp;(&nbsp; 2 &nbsp;&nbsp;SEC Max)</td>
+            <td>96</td>
+            <td>106</td>
+            <td>95 &nbsp;&nbsp;for &nbsp;&nbsp;90 &nbsp;SEC</td>
+            <td>135 &nbsp;(Max)<br>(&nbsp; 15 &nbsp;MIN Max)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Engine Notes (All values pre-filled matching blank doc) -->
     <div class="t1-notes-block">
@@ -933,7 +990,7 @@ BOTTLE ARMED SWITCH - PUSH
       <p>(4) The ITT during ground starts should normally not exceed <span class="prefilled-val">550</span> °C.</p>
     </div>
 
-    <!-- Lower Section Grid -->
+    <!-- Lower Section Dynamic Grid -->
     <div class="t1-lower-grid">
       
       <!-- LEFT COLUMN -->
@@ -1203,14 +1260,12 @@ BOTTLE ARMED SWITCH - PUSH
       hamburgerBtn.classList.remove('open');
     }
 
-    // Close on click outside
     document.addEventListener('click', (e) => {
       if (!navDropdown.contains(e.target) && !hamburgerBtn.contains(e.target)) {
         closeNavMenu();
       }
     });
 
-    // Close on Escape key
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeNavMenu();
@@ -1823,7 +1878,6 @@ BOTTLE ARMED SWITCH - PUSH
         currentRandomSec2Items.forEach((q, idx) => {
           const qNum = idx + 1;
 
-          // Format: [Category 1] Category 2 -> Category 3 (Solid Bold Black)
           let headerHTML = `<span class="q-cat1">[${q.category}]</span> <span class="q-cat2">${q.condition}</span>`;
           if (q.parameter && q.parameter.trim() !== "") {
             headerHTML += ` <span class="q-arrow">&rarr;</span> <span class="q-cat3">${q.parameter}</span>`;
